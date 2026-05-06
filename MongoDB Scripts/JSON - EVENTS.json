@@ -1,0 +1,19 @@
+{
+  "event_name": "NASA’s Hidden Figures: A Tribute",
+  "speaker": "Dr. Margot Shetterly",
+  "room": {
+    "name": "The Lovelace Suite",
+    "type": "Lecture room"
+  },
+  "requires_ticket": true,
+  "topics": [
+    {
+      "name": "Katherine Johnson",
+      "area": "mathematics"
+    },
+    {
+      "name": "Mary Jackson",
+      "area": "mathematics"
+    }
+  ]
+}

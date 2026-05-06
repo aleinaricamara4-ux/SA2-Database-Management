@@ -1,0 +1,42 @@
+[
+  {
+    "event_name": "NASA’s Hidden Figures: A Tribute",
+    "speaker": "Dr. Margot Shetterly",
+    "room": {
+      "room_name": "The Lovelace Suite",
+      "type": "Lecture room"
+    },
+    "requires_ticket": true,
+    "date": "2026-06-15",
+    "historical_figures": [
+      {
+        "name": "Katherine Johnson",
+        "contribution": "Apollo Lunar Module trajectories"
+      },
+      {
+        "name": "Mary Jackson",
+        "contribution": "NASA engineer, compressibility research"
+      }
+    ]
+  },
+  {
+    "event_name": "The Future of Computing",
+    "speaker": "Prof. Elizabeth Adams",
+    "room": {
+      "room_name": "STEM Grand Hall",
+      "type": "Event room"
+    },
+    "requires_ticket": false,
+    "date": "2026-07-10",
+    "historical_figures": [
+      {
+        "name": "Augusta Ada King (Lovelace)",
+        "contribution": "First computer algorithm"
+      },
+      {
+        "name": "Grace Hopper",
+        "contribution": "COBOL and linkers"
+      }
+    ]
+  }
+]

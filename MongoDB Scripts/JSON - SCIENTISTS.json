@@ -1,0 +1,210 @@
+[
+  {
+    "scientist_name": "Augusta Ada King (Lovelace)",
+    "country_of_birth": "britain",
+    "birth_year": 1815,
+    "death_year": 1852,
+    "description": "Accredited with the first published computer algorithm.",
+    "area": ["mathematics", "computing"]
+  },
+  {
+    "scientist_name": "Mary Cartwright",
+    "country_of_birth": "britain",
+    "birth_year": 1900,
+    "death_year": 1998,
+    "description": "Contributed to Chaos Theory and differential equations.",
+    "area": ["mathematics"]
+  },
+  {
+    "scientist_name": "Rosalind Franklin",
+    "country_of_birth": "britain",
+    "birth_year": 1920,
+    "death_year": 1958,
+    "description": "Refined X-ray crystallography; work vital to DNA model.",
+    "area": ["biology", "physics"]
+  },
+  {
+    "scientist_name": "Hertha Ayrton",
+    "country_of_birth": "britain",
+    "birth_year": 1854,
+    "death_year": 1923,
+    "description": "First woman member of the IEE; work on electric arcs.",
+    "area": ["engineer", "mathematician", "physicist"]
+  },
+  {
+    "scientist_name": "Dorothy Hodgkin",
+    "country_of_birth": "britain",
+    "birth_year": 1910,
+    "death_year": 1994,
+    "description": "Nobel Prize in Chemistry; structures of Vitamin B12 and Insulin.",
+    "area": ["biology", "chemistry"]
+  },
+  {
+    "scientist_name": "Hypatia Alexandria",
+    "country_of_birth": "egypt",
+    "birth_year": 360,
+    "death_year": 415,
+    "description": "Mathematician and astronomer in the Greek Empire.",
+    "area": ["mathematics", "astronomy"]
+  },
+  {
+    "scientist_name": "Émilie du Châtelet",
+    "country_of_birth": "france",
+    "birth_year": 1706,
+    "death_year": 1749,
+    "description": "French translation of Principia; conservation of energy.",
+    "area": ["mathematics", "physics"]
+  },
+  {
+    "scientist_name": "Marie-Sophie Germain",
+    "country_of_birth": "france",
+    "birth_year": 1776,
+    "death_year": 1831,
+    "description": "Work on Number Theory; mentored by Legendre.",
+    "area": ["mathematics", "physics"]
+  },
+  {
+    "scientist_name": "Irène Joliot-Curie",
+    "country_of_birth": "france",
+    "birth_year": 1897,
+    "death_year": 1956,
+    "description": "Pioneered work into nuclear fission; first French nuclear reactor.",
+    "area": ["chemistry", "physics"]
+  },
+  {
+    "scientist_name": "Yvonne Choquet-Bruhat",
+    "country_of_birth": "france",
+    "birth_year": 1923,
+    "death_year": null,
+    "description": "Field equations in 3+1 Dimensions; pioneered supergravity.",
+    "area": ["mathematics", "physics"]
+  },
+  {
+    "scientist_name": "Emmy Noether",
+    "country_of_birth": "germany",
+    "birth_year": 1882,
+    "death_year": 1935,
+    "description": "Solved problems with Einsteins maths in theory of relativity.",
+    "area": ["mathematics", "physics"]
+  },
+  {
+    "scientist_name": "Ida Noddack",
+    "country_of_birth": "germany",
+    "birth_year": 1896,
+    "death_year": 1978,
+    "description": "Proposed idea of nuclear fission by refuting chemical proofs.",
+    "area": ["chemistry", "physics"]
+  },
+  {
+    "scientist_name": "Maria Goeppert Mayer",
+    "country_of_birth": "germany",
+    "birth_year": 1906,
+    "death_year": 1972,
+    "description": "Nobel Prize in Physics for structure of nuclear shells.",
+    "area": ["physics"]
+  },
+  {
+    "scientist_name": "Maria Gaetana Agnesi",
+    "country_of_birth": "italy",
+    "birth_year": 1718,
+    "death_year": 1799,
+    "description": "Mathematics professor at a university in 1750.",
+    "area": ["mathematics"]
+  },
+  {
+    "scientist_name": "Fumiko Yonezawa",
+    "country_of_birth": "japan",
+    "birth_year": 1938,
+    "death_year": 2019,
+    "description": "President of the Physics Society of Japan.",
+    "area": ["physics", "computing"]
+  },
+  {
+    "scientist_name": "Marie Skłodowska Curie",
+    "country_of_birth": "poland",
+    "birth_year": 1867,
+    "death_year": 1934,
+    "description": "Theory of Radioactivity; discovered Radium and Polonium.",
+    "area": ["physics", "chemistry"]
+  },
+  {
+    "scientist_name": "Julia Lermontova",
+    "country_of_birth": "russia",
+    "birth_year": 1846,
+    "death_year": 1919,
+    "description": "First Russian woman to receive doctorate in Chemistry.",
+    "area": ["chemistry"]
+  },
+  {
+    "scientist_name": "Mileva Marić",
+    "country_of_birth": "serbia",
+    "birth_year": 1875,
+    "death_year": 1948,
+    "description": "Collaborated with Einstein during his Miracle Year.",
+    "area": ["mathematics", "physics"]
+  },
+  {
+    "scientist_name": "Sophia Brahe",
+    "country_of_birth": "sweden",
+    "birth_year": 1559,
+    "death_year": 1643,
+    "description": "Aided brother in modern orbit predictions of planets.",
+    "area": ["astronomy", "chemistry", "medical"]
+  },
+  {
+    "scientist_name": "Maria Christina Bruhn",
+    "country_of_birth": "sweden",
+    "birth_year": 1732,
+    "death_year": 1808,
+    "description": "Inventions in fire-safe cardboard for artillery.",
+    "area": ["astronomy"]
+  },
+  {
+    "scientist_name": "Grace Hopper",
+    "country_of_birth": "usa",
+    "birth_year": 1906,
+    "death_year": 1992,
+    "description": "COBOL; invented one of the first linkers.",
+    "area": ["computing"]
+  },
+  {
+    "scientist_name": "Stephanie Kwolek",
+    "country_of_birth": "usa",
+    "birth_year": 1923,
+    "death_year": 2014,
+    "description": "Inventor of Kevlar; Lavoisier Medalist.",
+    "area": ["chemistry"]
+  },
+  {
+    "scientist_name": "Katherine Johnson",
+    "country_of_birth": "usa",
+    "birth_year": 1918,
+    "death_year": 2020,
+    "description": "NASA mathematician for Apollo Lunar Module.",
+    "area": ["mathematics"]
+  },
+  {
+    "scientist_name": "Mary Jackson",
+    "country_of_birth": "usa",
+    "birth_year": 1921,
+    "death_year": 2005,
+    "description": "NASA engineer; work on compressibility.",
+    "area": ["mathematics"]
+  },
+  {
+    "scientist_name": "Sofya Kovalevskaya",
+    "country_of_birth": "russia",
+    "birth_year": 1850,
+    "death_year": 1891,
+    "description": "Cauchy-Kovalevskaya theorem for partial differential equations.",
+    "area": ["mathematics"]
+  },
+  {
+    "scientist_name": "Maryam Mirzakhani",
+    "country_of_birth": "iran",
+    "birth_year": 1977,
+    "death_year": 2017,
+    "description": "First Iranian woman to receive Fields Medal.",
+    "area": ["mathematics"]
+  }
+]

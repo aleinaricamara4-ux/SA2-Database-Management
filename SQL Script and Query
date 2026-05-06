@@ -1,0 +1,192 @@
+SQL Database Script
+
+CREATE DATABASE IF NOT EXISTS stem_historical;
+USE stem_historical;
+
+-- All tables are designed in 3NF normalization.
+-- Create Countries table
+CREATE TABLE countries (
+    CountryID INT AUTO_INCREMENT PRIMARY KEY,
+    CountryName VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Create Fields table
+CREATE TABLE fields (
+    FieldID INT AUTO_INCREMENT PRIMARY KEY,
+    FieldName VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Create Scientists table
+CREATE TABLE scientists (
+    ScientistID INT AUTO_INCREMENT PRIMARY KEY,
+    FullName VARCHAR(255) NOT NULL,
+    BirthYear INT,
+    DeathYear INT, -- Can be NULL if the person is alive
+    CountryID INT,
+    Bio TEXT,
+    WorkedForNASA BOOLEAN DEFAULT FALSE,
+    WorkedWithEinstein BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (CountryID) REFERENCES countries(CountryID)
+);
+
+-- Create Junction table for Scientists and Fields (Many-to-Many)
+-- This allows one scientist to have multiple fields (e.g., Physics and Chemistry)
+
+CREATE TABLE scientist_fields (
+    ScientistID INT,
+    FieldID INT,
+    PRIMARY KEY (ScientistID, FieldID),
+    FOREIGN KEY (ScientistID) REFERENCES scientists(ScientistID),
+    FOREIGN KEY (FieldID) REFERENCES fields(FieldID)
+);
+
+-- Create Rooms table (types: lecture room, event room)
+CREATE TABLE rooms (
+    RoomID INT AUTO_INCREMENT PRIMARY KEY,
+    RoomName VARCHAR(100) NOT NULL,
+    RoomType ENUM('Lecture room', 'Event room') NOT NULL
+);
+
+-- Create Events table (requirement: each event needs a speaker)
+CREATE TABLE events (
+    EventID INT AUTO_INCREMENT PRIMARY KEY,
+    EventName VARCHAR(255) NOT NULL,
+    SpeakerName VARCHAR(255) NOT NULL,
+    RoomID INT,
+    RequiresTicket BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (RoomID) REFERENCES rooms(RoomID)
+);
+
+-- Create Event Topics junction (requirement: events can have multiple topics)
+CREATE TABLE event_topics (
+    EventID INT,
+    ScientistID INT,
+    PRIMARY KEY (EventID, ScientistID),
+    FOREIGN KEY (EventID) REFERENCES events(EventID),
+    FOREIGN KEY (ScientistID) REFERENCES scientists(ScientistID)
+);
+
+
+
+-- 1. Populate Countries (Unique list)
+INSERT IGNORE INTO countries (CountryName) VALUES 
+('Britain'), ('France'), ('Egypt'), ('Germany'), ('Italy'), 
+('Japan'), ('Poland'), ('Russia'), ('Serbia'), ('Sweden'), 
+('USA'), ('Iran');
+
+-- 2. Populate Fields (Unique list)
+INSERT IGNORE INTO fields (FieldName) VALUES 
+('Mathematics'), ('Computing'), ('Biology'), ('Physics'), ('Chemistry'), 
+('Engineer'), ('Astronomy'), ('Aerospace');
+
+
+
+-- 3. Populate Scientists 
+-- Note: Birth/Death years taken from historical_stem excel file.
+INSERT INTO scientists (FullName, BirthYear, DeathYear, CountryID, Bio, WorkedForNASA, WorkedWithEinstein) VALUES
+('Augusta Ada King (Lovelace)', 1815, 1852, 1, 'Accredited with the first published computer algorithm.', FALSE, FALSE),
+('Mary Cartwright', 1900, 1998, 1, 'Contributed to Chaos Theory and differential equations.', FALSE, FALSE),
+('Rosalind Franklin', 1920, 1958, 1, 'Refined X-ray crystallography; work vital to DNA model.', FALSE, FALSE),
+('Hertha Ayrton', 1854, 1923, 1, 'First woman member of the IEE; work on electric arcs.', FALSE, FALSE),
+('Dorothy Hodgkin', 1910, 1994, 1, 'Nobel Prize in Chemistry; structures of Vitamin B12 and Insulin.', FALSE, FALSE),
+('Hypatia Alexandria', 360, 415, 3, 'Mathematician and astronomer in the Greek Empire.', FALSE, FALSE),
+('Émilie du Châtelet', 1706, 1749, 2, 'French translation of Principia; conservation of energy.', FALSE, FALSE),
+('Marie-Sophie Germain', 1776, 1831, 2, 'Work on Number Theory; famous for work on Fermat''s Last Theorem.', FALSE, FALSE),
+('Irène Joliot-Curie', 1897, 1956, 2, 'Pioneered work into nuclear fission; won Nobel Prize in Chemistry.', FALSE, FALSE),
+('Yvonne Choquet-Bruhat', 1923, NULL, 2, 'Showed solutions to Yang-Mills, Higgs, and Spinor Field Equations.', FALSE, FALSE),
+('Emmy Noether', 1882, 1935, 4, 'Solved a problem with Einstein''s maths in the theory of relativity.', FALSE, TRUE),
+('Ida Noddack', 1896, 1978, 4, 'First to propose the idea of nuclear fission.', FALSE, FALSE),
+('Maria Goeppert Mayer', 1906, 1972, 4, 'Nobel Prize in Physics for nuclear shell structure.', FALSE, FALSE),
+('Maria Gaetana Agnesi', 1718, 1799, 5, 'Wrote the first book discussing both differential and integral calculus.', FALSE, FALSE),
+('Fumiko Yonezawa', 1938, 2019, 6, 'Theoretical physicist; President of the Physics Society of Japan.', FALSE, FALSE),
+('Marie Skłodowska Curie', 1867, 1934, 7, 'First person to win two Nobel Prizes; discovered Radium and Polonium.', FALSE, FALSE),
+('Julia Lermontova', 1846, 1919, 8, 'First Russian woman to receive a doctorate in Chemistry.', FALSE, FALSE),
+('Mileva Marić', 1875, 1948, 9, 'Physicist who collaborated with Albert Einstein during his "Miracle Year".', FALSE, TRUE),
+('Sophia Brahe', 1559, 1643, 10, 'Assisted in modern orbit predictions of planets and solar system.', FALSE, FALSE),
+('Maria Christina Bruhn', 1732, 1808, 10, 'Inventor of a special type of fire-safe cardboard for artillery.', FALSE, FALSE),
+('Grace Hopper', 1906, 1992, 11, 'Pioneer of computer programming; invented one of the first linkers.', FALSE, FALSE),
+('Stephanie Kwolek', 1923, 2014, 11, 'Chemist at DuPont who discovered the extremely strong fiber Kevlar.', FALSE, FALSE),
+('Katherine Johnson', 1918, 2020, 11, 'Calculated trajectories for Mercury and Apollo space missions.', TRUE, FALSE),
+('Mary Jackson', 1921, 1944, 11, 'NASA''s first Black female engineer; work on compressibility.', TRUE, FALSE),
+('Sofya Kovalevskaya', 1850, 1891, 8, 'First major Russian female mathematician; work on analysis.', FALSE, FALSE),
+('Maryam Mirzakhani', 1977, 2017, 12, 'First woman to be honored with the Fields Medal in Mathematics.', FALSE, FALSE);
+
+
+
+-- 4. Map Scientists to Fields (Many-to-Many examples)
+
+-- Linking Ada Lovelace (ID 1) to Mathematics (1) and Computing (2)
+INSERT INTO scientist_fields (ScientistID, FieldID) VALUES (1, 1), (1, 2);
+
+-- Linking Grace Hopper (ID 21) to Computing (2)
+INSERT INTO scientist_fields (ScientistID, FieldID) VALUES (21, 2);
+
+-- Linking Katherine Johnson (ID 23) to Mathematics (1) and Aerospace (8)
+INSERT INTO scientist_fields (ScientistID, FieldID) VALUES (23, 1), (23, 8);
+
+
+-- 1. Insert Rooms (Requirement: At least 1 Lecture and 1 Event room)
+INSERT INTO rooms (RoomName, RoomType) VALUES 
+('The Lovelace Suite', 'Lecture room'),
+('STEM Grand Hall', 'Event room');
+
+-- 2. Insert an Event (Requirement: 1 speaker, 1+ topics, 1 room)
+INSERT INTO events (EventName, SpeakerName, RoomID, RequiresTicket) VALUES 
+('NASA’s Hidden Figures: A Tribute', 'Dr. Margot Shetterly', 1, TRUE);
+
+-- 3. Assign Topics to the Event (Requirement: 1 or more historical figures)
+-- Mapping to Katherine Johnson (ID 23) and Mary Jackson (ID 24)
+INSERT INTO event_topics (EventID, ScientistID) VALUES (1, 23), (1, 24);
+
+
+SQL QUERIES
+
+-- Q1. List all historical figures that were born in France
+SELECT FullName FROM scientists s 
+JOIN countries c ON s.CountryID = c.CountryID 
+WHERE c.CountryName = 'France';
+
+-- Q2. List all historical figures that contributed to Computing
+SELECT s.FullName FROM scientists s 
+JOIN scientist_fields sf ON s.ScientistID = sf.ScientistID 
+JOIN fields f ON sf.FieldID = f.FieldID 
+WHERE f.FieldName = 'Computing';
+
+-- Q3. List all historical figures that contributed to more than 1 field
+SELECT s.FullName FROM scientists s 
+JOIN scientist_fields sf ON s.ScientistID = sf.ScientistID 
+GROUP BY s.ScientistID 
+HAVING COUNT(sf.FieldID) > 1;
+
+-- Q4. Mary Jackson’s death is incorrectly listed. Update this date to 2005
+UPDATE scientists SET DeathYear = 2005 WHERE FullName = 'Mary Jackson';
+
+-- Q5. List all historical figures who died before they were 40
+SELECT FullName, (DeathYear - BirthYear) AS AgeAtDeath FROM scientists 
+WHERE (DeathYear - BirthYear) < 40;
+
+-- Q6. Which countries have the most historical figures listed
+SELECT c.CountryName, COUNT(s.ScientistID) AS TotalCount 
+FROM countries c 
+JOIN scientists s ON c.CountryID = s.CountryID 
+GROUP BY c.CountryName 
+ORDER BY TotalCount DESC;
+
+-- Q7. Are any historical figures still alive? If so who
+-- (Based on data where DeathYear is NULL)
+SELECT FullName FROM scientists WHERE DeathYear IS NULL;
+
+-- Q8. Which historical figures worked for NASA
+SELECT FullName FROM scientists WHERE WorkedForNASA = TRUE;
+
+
+-- Q9. Which historical figures worked with Einstein?
+SELECT FullName FROM scientists WHERE WorkedWithEinstein = TRUE;
+
+-- Q10. Which countries have the most fields of research contributions
+SELECT c.CountryName, COUNT(DISTINCT sf.FieldID) AS UniqueFields 
+FROM countries c 
+JOIN scientists s ON c.CountryID = s.CountryID 
+JOIN scientist_fields sf ON s.ScientistID = sf.ScientistID 
+GROUP BY c.CountryName 
+ORDER BY UniqueFields DESC;

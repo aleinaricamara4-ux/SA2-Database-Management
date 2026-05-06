@@ -1,0 +1,40 @@
+Q1. List all historical figures that were born in France
+db.scientists.find({ "country_of_birth": "france" }, { "scientist_name": 1, "_id": 0 });
+
+Q2. List all historical figures that contributed to Computing
+db.scientists.find({ "area": "computing" }, { "scientist_name": 1, "_id": 0 });
+
+Q3. List all historical figures that contributed to more than 1 field
+db.scientists.find({ $expr: { $gt: [{ $size: "$area" }, 1] } }, { "scientist_name": 1, "_id": 0 });
+
+Q4. Mary Jackson’s death is incorrectly listed. Update this date to 2005
+db.scientists.updateOne({ "scientist_name": "Mary Jackson" }, { $set: { "death_year": 2005 } });
+
+Q5. List all historical figures who died before they were 40
+db.scientists.aggregate([
+  { $project: { "scientist_name": 1, "age": { $subtract: ["$death_year", "$birth_year"] } } },
+  { $match: { "age": { $lt: 40 } } }
+]);
+
+Q6. Which countries have the most historical figures listed
+db.scientists.aggregate([
+  { $group: { _id: "$country_of_birth", totalCount: { $sum: 1 } } },
+  { $sort: { totalCount: -1 } }
+]);
+
+Q7. Are any historical figures still alive?
+db.scientists.find({ "death_year": null }, { "scientist_name": 1, "_id": 0 });
+
+Q8. Which historical figures worked for NASA
+db.scientists.find({ "description": { $regex: /NASA/i } }, { "scientist_name": 1, "_id": 0 });
+
+Q9. Which historical figures worked with Einstein?
+db.scientists.find({ "description": { $regex: /Einstein/i } }, { "scientist_name": 1, "_id": 0 });
+
+Q10. Which countries have the most fields of research contributions
+db.scientists.aggregate([
+  { $unwind: "$area" },
+  { $group: { _id: "$country_of_birth", uniqueFields: { $addToSet: "$area" } } },
+  { $project: { _id: 1, fieldCount: { $size: "$uniqueFields" } } },
+  { $sort: { fieldCount: -1 } }
+]);
